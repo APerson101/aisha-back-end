@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "outDir": "lib",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "typeRoots": [
+      "./functions/node_modules/@types",
+      "./functions/node_modules/faker"
+    ],
+    // "types": [
+    //   "@types/mocha",
+    //   "@types/faker"
+    // ],
+    "strict": true,
+    "target": "es2017"
+  },
+  "compileOnSave": true,
+  "include": [
+    "src"
+  ]
+}
