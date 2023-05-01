@@ -1,13 +1,10 @@
 import * as admin from "firebase-admin";
 import * as functions from "firebase-functions";
-import {testCreatQuiz} from "./test";
 import {newQuiz} from "./triggers";
 exports.new=newQuiz;
 admin.initializeApp({credential: admin.credential.applicationDefault()});
 
-export const create=functions.https.onCall(async ()=>{
-  await testCreatQuiz();
-});
+
 export const sendMessageToTokens=functions.https.onCall(async ()=>{
   const token = (await admin.firestore().
       collection("users").get()).docs[0].get("fcmtoken");

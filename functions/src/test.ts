@@ -1,43 +1,61 @@
-import {faker} from "@faker-js/faker";
-import * as admin from "firebase-admin";
-import moment from "moment";
-/** */
-export async function testCreatQuiz() {
-  (await admin.firestore().collection("users").add({
-    "type": "student",
-    "courses": ["comp103", "phy111"],
-    "name": faker.name.fullName(),
-    "fcmtoken": "cyurfPLkTv66hh1uNWXe4I:"+
-    "APA91bHUYLcxsPe2l9xftulEgi9JVwFSi3edUix4qLKK3jcQoS0gn_"+
-    "ixUIkqz6VedklqukUvreKsuPnd3ak2RFhdZtLg"+
-    "FO4DHqbENZix5CgFOYDehxXqF2Dz-9Qm6Z_knd_42yE_OBM-",
-  }));
+// import * as admin from "firebase-admin";
+// import moment from "moment";
+// /** */
+// export async function testCreatQuiz() {
+//   // (await admin.firestore().collection("users").add({
+//   //   "type": "student",
+//   //   "courses": ["comp103", "phy111"],
+//   //   "name": faker.name.fullName(),
+//   //   "fcmtoken": "cyurfPLkTv66hh1uNWXe4I:"+
+//   //   "APA91bHUYLcxsPe2l9xftulEgi9JVwFSi3edUix4qLKK3jcQoS0gn_"+
+//   //   "ixUIkqz6VedklqukUvreKsuPnd3ak2RFhdZtLg"+
+//   //   "FO4DHqbENZix5CgFOYDehxXqF2Dz-9Qm6Z_knd_42yE_OBM-",
+//   // }));
 
+//   // get all courses
+//   const coursesDocs=(await admin.
+// firestore().collection("courses").get()).docs;
 
-  const quizID = faker.datatype.uuid();
-  (await admin.firestore().collection("Quizzes").add({
-    creatorID: faker.datatype.uuid(),
-    quizID: quizID,
-    quizName: "Test quiz 1",
-    creatorName: "Dan Lami",
-    allQuestions: [
-      {question: "how are you doing?",
-        correctAnswers: [true, true, false, false],
-        options: ["hello", "world", "where", "are we"],
-      },
-      {question: "how are you doing today ?",
-        correctAnswers: [true, true, false, false],
-        options: ["hello", "world", "where", "are we"],
-      },
-      {question: "how are you doing in three days?",
-        correctAnswers: [true, true, false, false],
-        options: ["hello", "world", "where", "are we"],
-      },
-    ],
-    createdDate: moment().valueOf(),
-    duration: faker.datatype.number({min: 1, max: 3}),
-    startDate: moment().valueOf(),
-    startTime: {"hour": moment().hour()+1, "min": moment().minute()+3},
-    courses: ["comp103", "phy111", "comp143"],
-  }));
-}
+//   // get all lecturers
+
+//   const staff=((await admin.firestore().
+//       collection("users").
+//       where("userType", "==", "staff").get()).docs );
+//   for (const person in staff) {
+//     if (Object.prototype.hasOwnProperty.call(staff, person)) {
+//       const element = staff[person].data();
+
+//       const quizID = faker.datatype.uuid();
+//       (await admin.firestore().collection("Quizzes").add({
+//         creatorID: element.id,
+//         quizID: quizID,
+//         quizName: faker.company.name(),
+//         creatorName: element.name,
+//         allQuestions: [
+//           {question: faker.random.words(15),
+//             correctAnswers: [true, true, false, false],
+//             options: faker.random.words(4).split(" "),
+//           },
+//           {
+//             question: faker.random.words(15),
+//             correctAnswers: [true, true, false, false],
+//             options: faker.random.words(4).split(" "),
+//           },
+//           {
+//             question: faker.random.words(15),
+//             correctAnswers: [true, true, false, false],
+//             options: faker.random.words(4).split(" "),
+//           },
+//         ],
+//         createdDate: moment().valueOf(),
+//         duration: faker.datatype.number({min: 1, max: 10}),
+//         startDate: moment().valueOf(),
+//         startTime: {"hour": moment().hour()+2,
+// "min": moment().minute()+3},
+//         courses: [
+//           coursesDocs[Math.random() * (coursesDocs.length - 0) + 0]
+//               .get("name")],
+//       }));
+//     }
+//   }
+// }

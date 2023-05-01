@@ -1,5 +1,6 @@
 /* eslint-disable valid-jsdoc */
 import * as admin from "firebase-admin";
+import {MulticastMessage} from "firebase-admin/lib/messaging/messaging-api";
 import * as functions from "firebase-functions";
 import moment from "moment";
 /**
@@ -17,12 +18,13 @@ export const newQuiz=
         // get all affected students
         const snapshot=(await admin.firestore().collection("users")
             .where("courses", "array-contains-any", quiz.courses)
+            .where("userType", "==", "student")
             .get());
         const tokens:string[]=[];
         const usersArray=snapshot.docs;
         for (let index = 0; index < usersArray.length; index++) {
           const element = usersArray[index];
-          tokens.push(element.get("fcmtoken"));
+          tokens.push(element.get("fcmToken"));
         }
         const date=quiz.startDate;
         const convertedDate=moment(date).format("DD MM YY");
@@ -49,10 +51,11 @@ export const newQuiz=
  * message: This parameter contains all necessary informaton
  * returns a boolean
  */
-async function sendMessage( message:any):Promise<boolean> {
+async function sendMessage(message: MulticastMessage):Promise<boolean> {
   return (await admin.messaging().sendMulticast(message)
       .then((response) => {
-        console.log(response.successCount + " messages were sent successfully");
+        console.log(response.successCount +
+          " message(s) were sent successfully");
         return true;
       }).catch((error) => {
         console.log(error); return false;
